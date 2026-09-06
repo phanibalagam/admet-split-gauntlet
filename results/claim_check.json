@@ -1,0 +1,50 @@
+[
+  {
+    "endpoint": "esol",
+    "winners": {
+      "random": "combo",
+      "scaffold": "combo"
+    },
+    "winner_changes_with_split": false,
+    "winner_separated_from_field": {
+      "random": false,
+      "scaffold": false
+    }
+  },
+  {
+    "endpoint": "tox21:NR-AR",
+    "winners": {
+      "random": "morgan",
+      "scaffold": "descriptors"
+    },
+    "winner_changes_with_split": true,
+    "winner_separated_from_field": {
+      "random": false,
+      "scaffold": false
+    }
+  },
+  {
+    "endpoint": "tox21:SR-MMP",
+    "winners": {
+      "random": "combo",
+      "scaffold": "combo"
+    },
+    "winner_changes_with_split": false,
+    "winner_separated_from_field": {
+      "random": false,
+      "scaffold": false
+    }
+  },
+  {
+    "endpoint": "tox21:NR-AhR",
+    "winners": {
+      "random": "combo",
+      "scaffold": "combo"
+    },
+    "winner_changes_with_split": false,
+    "winner_separated_from_field": {
+      "random": false,
+      "scaffold": false
+    }
+  }
+]

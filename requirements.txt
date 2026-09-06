@@ -1,0 +1,14 @@
+# Pinned to the versions these results were produced with.
+# Loosen to >= if you prefer; results are not version-sensitive
+# beyond ordinary floating-point noise.
+numpy==2.4.4
+pandas==3.0.2
+scikit-learn==1.8.0
+rdkit==2026.03.6
+
+# notebook only
+jupyter>=1.0
+
+# optional: enables the chemberta arm
+# torch>=2.0
+# transformers>=4.35

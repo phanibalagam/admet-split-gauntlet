@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "Split-Aware Evaluation of Molecular Featurizers for ADMET Prediction"
+abstract: >-
+  A per-endpoint evaluation harness comparing molecular featurizers across
+  random and scaffold splits with bootstrap confidence intervals, testing
+  whether reported ranking differences survive the uncertainty they are
+  quoted with.
+type: software
+authors:
+  - family-names: Balagam
+    given-names: Phani Kumar
+    orcid: "https://orcid.org/0009-0007-6762-399X"
+repository-code: "https://github.com/phanibalagam/admet-split-gauntlet"
+license: MIT
+date-released: "2026-09-05"
+version: "1.0.0"
+keywords:
+  - ADMET
+  - molecular property prediction
+  - scaffold split
+  - evaluation methodology
+  - cheminformatics

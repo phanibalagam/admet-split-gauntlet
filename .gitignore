@@ -1,0 +1,10 @@
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+out/
+
+# ESOL and Tox21 are downloaded by `run.py setup` from the DeepChem repository.
+data/delaney.csv
+data/tox21.csv.gz
