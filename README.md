@@ -154,3 +154,13 @@ generated, and under which licence each part may be redistributed.
 
 Originally candidate 06 in a fourteen-candidate portfolio assessment; renumbered
 sequentially here because these three were the ones built.
+
+## Disclaimer
+
+This work was carried out independently, on personal time and equipment, and is
+not connected to the author's employment. The views expressed are the author's
+own and do not represent the views, positions or policies of any current,
+former or future employer or client. **No proprietary, confidential or internal
+data of any organisation was used.** All data is public: ESOL (Delaney) and
+three Tox21 assays, redistributed from the DeepChem repository under the MIT
+licence and downloaded by `run.py setup`.
