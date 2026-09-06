@@ -40,30 +40,31 @@ python run.py gauntlet --featurizers morgan descriptors combo chemberta
 
 ## What it found on the shipped public data
 
-All four endpoints and all three arms. Means over 5 model seeds, with the
-bootstrap 95% interval on the seed-0 test set. Every value is in
-`results/with_intervals.csv`.
+All four endpoints and all three arms. Means over 5 model seeds, with an
+interval that is the union of two things: the spread across the five seeds, and a
+500-resample test-set bootstrap computed at every seed. Every value, and the
+separability verdict under each interval separately, is in `results/`.
 
 ```
 esol            RMSE       random                 scaffold
-  morgan                   1.093 [1.049,1.277]    1.618 [1.469,1.794]
-  descriptors              0.586 [0.504,0.625]    0.938 [0.830,1.011]
-  combo                    0.584 [0.490,0.611]    0.928 [0.808,1.003]
+  morgan                   1.093 [0.863,1.321]    1.618 [1.394,1.794]
+  descriptors              0.586 [0.477,0.740]    0.938 [0.803,1.062]
+  combo                    0.584 [0.490,0.723]    0.928 [0.800,1.050]
 
 tox21:NR-AR     ROC_AUC    random                 scaffold
-  morgan                   0.801 [0.684,0.824]    0.731 [0.651,0.797]
-  descriptors              0.764 [0.669,0.831]    0.746 [0.668,0.824]
-  combo                    0.769 [0.680,0.831]    0.735 [0.668,0.821]
+  morgan                   0.801 [0.684,0.905]    0.731 [0.630,0.819]
+  descriptors              0.764 [0.616,0.873]    0.746 [0.627,0.835]
+  combo                    0.769 [0.628,0.874]    0.735 [0.643,0.837]
 
 tox21:SR-MMP    ROC_AUC    random                 scaffold
-  morgan                   0.871 [0.845,0.898]    0.763 [0.736,0.807]
-  descriptors              0.930 [0.911,0.951]    0.842 [0.814,0.872]
-  combo                    0.932 [0.908,0.950]    0.844 [0.818,0.873]
+  morgan                   0.871 [0.832,0.903]    0.763 [0.712,0.807]
+  descriptors              0.930 [0.891,0.953]    0.842 [0.805,0.875]
+  combo                    0.932 [0.898,0.957]    0.844 [0.813,0.873]
 
 tox21:NR-AhR    ROC_AUC    random                 scaffold
-  morgan                   0.891 [0.871,0.925]    0.797 [0.772,0.835]
-  descriptors              0.906 [0.897,0.943]    0.841 [0.816,0.870]
-  combo                    0.908 [0.893,0.943]    0.843 [0.819,0.875]
+  morgan                   0.891 [0.858,0.925]    0.797 [0.746,0.839]
+  descriptors              0.906 [0.852,0.943]    0.841 [0.807,0.874]
+  combo                    0.908 [0.860,0.943]    0.843 [0.806,0.877]
 ```
 
 The split shift is the result that holds up. Scaffold splitting costs something
@@ -73,18 +74,21 @@ memorisation of chemotypes, and it is why any ADMET number quoted without naming
 its split is unreadable.
 
 The direction holds everywhere but the magnitude does not, and the random and
-scaffold intervals fail to overlap in nine of twelve combinations rather than all
-twelve. The three exceptions are the three NR-AR arms, which have both the
-smallest shifts and much the widest intervals.
+scaffold intervals fail to overlap in seven of twelve combinations rather than all
+twelve. The widest exceptions are the three NR-AR arms, which have the smallest
+shift averaged over arms and much the widest intervals. On the test-set bootstrap
+alone the count is nine of twelve; taking the union of both uncertainty sources
+moves it to seven.
 
 The ranking flips only where nothing is separable.
 
 A single-seed run of this project originally reported that the winning arm
 changed with the split on three of the four endpoints. Adding repeated seeds and
 bootstrap intervals cut that to **one** of four, `tox21:NR-AR`. That endpoint is
-also the only one where all three arms sit inside each other's intervals, in both
-splits. On ESOL and SR-MMP, where `descriptors` and `combo` are cleanly separated
-from `morgan`, the winner does not change at all.
+one of three, with `tox21:SR-MMP` and `tox21:NR-AhR`, where no arm is separable
+from the field under either split. Only on ESOL is an arm separable, and it is
+`morgan`, distinguishably the worst of the three; that endpoint's winner does not
+change at all.
 
 So the reordering happens exactly where the arms cannot be told apart. That is
 sampling noise, not a property of the splits, and the original claim is
@@ -162,5 +166,7 @@ not connected to the author's employment. The views expressed are the author's
 own and do not represent the views, positions or policies of any current,
 former or future employer or client. **No proprietary, confidential or internal
 data of any organisation was used.** All data is public: ESOL (Delaney) and
-three Tox21 assays, redistributed from the DeepChem repository under the MIT
-licence and downloaded by `run.py setup`.
+three Tox21 assays. Neither is redistributed here; `run.py setup` downloads both
+from the DeepChem repository, whose MIT licence covers that project's software.
+The data itself originates with Delaney (2004) and with the NIH/NCATS Tox21
+initiative, and those sources govern its terms of use.

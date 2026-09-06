@@ -28,11 +28,18 @@ def random_split(n: int, frac_train: float = 0.8, seed: int = 0):
     return idx[:cut], idx[cut:]
 
 
-def scaffold_split(mols: list, frac_train: float = 0.8, seed: int = 0):
+def scaffold_split(mols: list, frac_train: float = 0.8):
     """
     Group by Bemis-Murcko scaffold, then fill the training set with the largest
     groups first. Standard MoleculeNet practice: deterministic, and it puts the
     rare chemotypes in test where they belong.
+
+    There is no seed argument, deliberately. This split is a function of the
+    molecules alone, so the partition cannot be varied without changing the
+    protocol to a randomised or balanced scaffold split, which is a different
+    method rather than a different seed. An earlier version accepted a `seed`
+    and ignored it, which read as if the partition were being reseeded when it
+    was not.
     """
     groups: dict[str, list[int]] = {}
     for i, m in enumerate(mols):

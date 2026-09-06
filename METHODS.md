@@ -18,7 +18,7 @@ Two public, permissively licensed sources, retrieved by `src/data.py`:
 
 - **ESOL / Delaney**: aqueous solubility, regression, 1,128 compounds
 - **Tox21**: twelve binary toxicity assays, ~8,000 compounds; NR-AR, SR-MMP and
-  NR-AhR are used here (7,432 / 5,920 / 6,691 compounds after parsing)
+  NR-AhR are used here (7,432 / 5,914 / 6,684 compounds after parsing)
 
 Both are distributed with the DeepChem repository under the MIT licence. SMILES
 that RDKit cannot parse are dropped rather than imputed; no compound is otherwise
@@ -70,33 +70,50 @@ Regression: RMSE (primary), R². Classification: ROC-AUC (primary), PR-AUC.
 
 Two sources of variance are quantified separately (`src/experiments.py`):
 
-- **Test-set variance**: percentile bootstrap over the held-out set, 500 (the value `reproduce.sh` passes; the code default is 1,000)
-  resamples, 95% interval. Resamples that lose a class are skipped, the standard
-  handling for AUC.
-- **Model-seed variance**: the fit is repeated across five seeds and the
-  standard deviation reported. For the random split the seed also varies the
-  split; for the scaffold split the partition is fixed and the seed varies the
-  fit alone.
+- **Test-set variance**: percentile bootstrap over the held-out set, 500 (the
+  value `reproduce.sh` passes; the code default is 1,000) resamples, 95%
+  interval, computed **at every seed** rather than only the first. Resamples that
+  lose a class are skipped, the standard handling for AUC.
+- **Run-to-run spread**: the range of the metric across five seeds. For the
+  random split the seed also redraws the partition, so this spread is the sum of
+  model and split variance and cannot be decomposed into them. The scaffold split
+  is a deterministic function of the molecules and takes no seed, so "across
+  seeds" means something different in the two halves of the table.
+
+`with_intervals.csv` carries both (`seed_lo`/`seed_hi`, `boot_lo`/`boot_hi`) and
+their union (`wide_lo`/`wide_hi`). **Separability is decided on the union**, so a
+difference has to survive the wider of the two uncertainties before an arm is
+called separable. `claim_check.json` records the verdict under each interval
+alone as well, because the choice changes the answer: on the test-set bootstrap
+by itself, `morgan` is separable on SR-MMP and the count of indistinguishable
+endpoints is two rather than three.
+
+An earlier version bootstrapped only seed 0 and compared five-seed means against
+that one interval. Those are different objects, and mixing them decided
+separability on an uncertainty that excluded the run-to-run variation the
+withdrawn claim was about. As it turns out the across-seed spread is narrower
+than the test-set bootstrap in all 24 cells, so the error was conservative rather
+than permissive, but it moved two counts in section 7.
 
 ## 7. Results
 
-Means over five model seeds, with the bootstrap 95% interval on the seed-0 test
-set.
+Means over five model seeds. Intervals are the union of the across-seed spread
+and a 500-resample test-set bootstrap computed at every seed; see section 6.
 
 | Endpoint | Arm | Random | Scaffold | Shift |
 |---|---|---|---|---|
-| esol (RMSE ↓) | morgan | 1.093 | 1.618 | +0.525 |
-| | descriptors | 0.586 | 0.938 | +0.352 |
-| | combo | 0.584 | 0.928 | +0.343 |
-| tox21:NR-AR (AUC ↑) | morgan | 0.801 | 0.731 | −0.070 |
-| | descriptors | 0.764 | 0.746 | −0.018 |
-| | combo | 0.769 | 0.735 | −0.034 |
-| tox21:SR-MMP (AUC ↑) | morgan | 0.871 | 0.763 | −0.108 |
-| | descriptors | 0.930 | 0.842 | −0.088 |
-| | combo | 0.932 | 0.844 | −0.088 |
-| tox21:NR-AhR (AUC ↑) | morgan | 0.891 | 0.797 | −0.094 |
-| | descriptors | 0.906 | 0.841 | −0.065 |
-| | combo | 0.908 | 0.843 | −0.065 |
+| esol (RMSE ↓) | morgan | 1.093 [0.863, 1.321] | 1.618 [1.394, 1.794] | +0.525 |
+|  | descriptors | 0.586 [0.477, 0.740] | 0.938 [0.803, 1.062] | +0.352 |
+|  | combo | 0.584 [0.490, 0.723] | 0.928 [0.800, 1.050] | +0.343 |
+| tox21:NR-AR (AUC ↑) | morgan | 0.801 [0.684, 0.905] | 0.731 [0.630, 0.819] | -0.070 |
+|  | descriptors | 0.764 [0.616, 0.873] | 0.746 [0.627, 0.835] | -0.018 |
+|  | combo | 0.769 [0.628, 0.874] | 0.735 [0.643, 0.837] | -0.034 |
+| tox21:SR-MMP (AUC ↑) | morgan | 0.871 [0.832, 0.903] | 0.763 [0.712, 0.807] | -0.108 |
+|  | descriptors | 0.930 [0.891, 0.953] | 0.842 [0.805, 0.875] | -0.088 |
+|  | combo | 0.932 [0.898, 0.957] | 0.844 [0.813, 0.873] | -0.088 |
+| tox21:NR-AhR (AUC ↑) | morgan | 0.891 [0.858, 0.925] | 0.797 [0.746, 0.839] | -0.094 |
+|  | descriptors | 0.906 [0.852, 0.943] | 0.841 [0.807, 0.874] | -0.065 |
+|  | combo | 0.908 [0.860, 0.943] | 0.843 [0.806, 0.877] | -0.065 |
 
 Bootstrap intervals for every cell are in `results/with_intervals.csv`.
 
@@ -107,9 +124,10 @@ to 0.108 ROC-AUC on the classification endpoints, and 48% to 60% added RMSE on
 ESOL. This is the finding the study supports.
 
 The direction holds everywhere. The magnitude does not, and the random and
-scaffold bootstrap intervals fail to overlap in nine of the twelve combinations,
-not all of them. The three exceptions are the three NR-AR arms, which have the
-smallest shifts and the widest intervals in the study.
+scaffold intervals fail to overlap in seven of the twelve combinations, not all of
+them. The widest exceptions are the three NR-AR arms, which have the smallest
+shift averaged over arms and the widest intervals in the study. On the test-set
+bootstrap alone the count is nine of twelve.
 
 ### 7.2 The ranking claim did not survive
 
@@ -122,17 +140,19 @@ Where that one sits is the informative part. Two arms are called **not separable
 here when their bootstrap intervals overlap, the weaker and more conservative of
 the two tests in common use.
 
-On NR-AR and NR-AhR all three arms' intervals overlap under both splits, so no arm
-is separable from any other. On ESOL and SR-MMP, `morgan` is separable from the
-other two. The surviving reorder is on NR-AR, one of the two indistinguishable
-endpoints, and neither separable endpoint reorders. That is single-seed noise
-between statistically indistinguishable arms rather than a property of the splits,
-and the claim is withdrawn.
+On NR-AR, SR-MMP and NR-AhR every arm's interval overlaps another's under both
+splits, so no arm is separable from the field. Only on ESOL is one separable, and
+it is `morgan`, distinguishably the worst of the three. The surviving reorder is
+on NR-AR, one of the three indistinguishable endpoints, and the one separable
+endpoint does not reorder. That is single-seed noise between statistically
+indistinguishable arms rather than a property of the splits, and the claim is
+withdrawn.
 
-Two limits: four endpoints give one reorder among two indistinguishable endpoints
-and none among two separable ones, which is consistent with the noise account
-rather than a test of it; and the indistinguishable endpoints also have the widest
-intervals, so they are the likeliest to reorder under any mechanism. Note also
+Three limits: four endpoints give one reorder among three indistinguishable
+endpoints and none on the single separable one, which is consistent with the noise
+account rather than a test of it; the indistinguishable endpoints also have the
+widest intervals, so they are the likeliest to reorder under any mechanism; and
+the count is two rather than three if the test-set bootstrap is used alone. Note also
 that `descriptors` and `combo` are separable from each other nowhere, and `combo`
 contains `descriptors` by construction. `results/claim_check.json`
 records the test, including the criterion under which it fails.

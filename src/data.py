@@ -1,7 +1,7 @@
 """
 Endpoint registry.
 
-Two real, public MoleculeNet datasets ship with the project:
+Two real, public MoleculeNet datasets back the project:
 
   esol        aqueous solubility, regression, 1128 compounds (Delaney)
   tox21:*     12 binary toxicity assays, ~8000 compounds

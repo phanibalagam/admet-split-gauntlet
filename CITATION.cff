@@ -13,8 +13,8 @@ authors:
     orcid: "https://orcid.org/0009-0007-6762-399X"
 repository-code: "https://github.com/phanibalagam/admet-split-gauntlet"
 license: MIT
-date-released: "2026-09-05"
-version: "1.0.0"
+date-released: "2026-09-06"
+version: "1.1.0"
 keywords:
   - ADMET
   - molecular property prediction

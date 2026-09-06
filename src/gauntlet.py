@@ -93,7 +93,7 @@ def run_endpoint(ep: Endpoint, featurizers: list[str], splits: list[str],
             if split == "random":
                 tr, te = random_split(len(mols), seed=seed)
             elif split == "scaffold":
-                tr, te = scaffold_split(mols, seed=seed)
+                tr, te = scaffold_split(mols)
             elif split == "temporal":
                 tr, te = temporal_split(dates)
             else:

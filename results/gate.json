@@ -1,0 +1,43 @@
+{
+  "esol": {
+    "split_used": "scaffold",
+    "baseline": "morgan",
+    "baseline_score": 1.6183,
+    "criterion": "beats the baseline and its interval does not overlap the baseline's (wide_lo, wide_hi)",
+    "arms_beating_baseline_separably": [
+      "descriptors",
+      "combo"
+    ],
+    "ship": "descriptors",
+    "passed": true
+  },
+  "tox21:NR-AR": {
+    "split_used": "scaffold",
+    "baseline": "morgan",
+    "baseline_score": 0.7305,
+    "criterion": "beats the baseline and its interval does not overlap the baseline's (wide_lo, wide_hi)",
+    "arms_beating_baseline_separably": [],
+    "ship": "morgan",
+    "passed": false
+  },
+  "tox21:SR-MMP": {
+    "split_used": "scaffold",
+    "baseline": "morgan",
+    "baseline_score": 0.7631,
+    "criterion": "beats the baseline and its interval does not overlap the baseline's (wide_lo, wide_hi)",
+    "arms_beating_baseline_separably": [
+      "combo"
+    ],
+    "ship": "combo",
+    "passed": true
+  },
+  "tox21:NR-AhR": {
+    "split_used": "scaffold",
+    "baseline": "morgan",
+    "baseline_score": 0.7971,
+    "criterion": "beats the baseline and its interval does not overlap the baseline's (wide_lo, wide_hi)",
+    "arms_beating_baseline_separably": [],
+    "ship": "morgan",
+    "passed": false
+  }
+}

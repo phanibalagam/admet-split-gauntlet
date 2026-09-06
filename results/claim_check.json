@@ -6,7 +6,42 @@
       "scaffold": "combo"
     },
     "winner_changes_with_split": false,
+    "criterion": "intervals do not overlap, on the union of the across-seed spread and the test-set bootstrap (wide_lo, wide_hi)",
+    "separable_under_each_interval_alone": {
+      "random": {
+        "test_set_bootstrap_seed0": [
+          "morgan"
+        ],
+        "across_seeds": [
+          "morgan"
+        ]
+      },
+      "scaffold": {
+        "test_set_bootstrap_seed0": [
+          "morgan"
+        ],
+        "across_seeds": [
+          "morgan"
+        ]
+      }
+    },
+    "separable_arms": {
+      "random": [
+        "morgan"
+      ],
+      "scaffold": [
+        "morgan"
+      ]
+    },
     "winner_separated_from_field": {
+      "random": false,
+      "scaffold": false
+    },
+    "any_arm_separable": {
+      "random": true,
+      "scaffold": true
+    },
+    "winner_separated_point_in_interval": {
       "random": false,
       "scaffold": false
     }
@@ -18,7 +53,30 @@
       "scaffold": "descriptors"
     },
     "winner_changes_with_split": true,
+    "criterion": "intervals do not overlap, on the union of the across-seed spread and the test-set bootstrap (wide_lo, wide_hi)",
+    "separable_under_each_interval_alone": {
+      "random": {
+        "test_set_bootstrap_seed0": [],
+        "across_seeds": []
+      },
+      "scaffold": {
+        "test_set_bootstrap_seed0": [],
+        "across_seeds": []
+      }
+    },
+    "separable_arms": {
+      "random": [],
+      "scaffold": []
+    },
     "winner_separated_from_field": {
+      "random": false,
+      "scaffold": false
+    },
+    "any_arm_separable": {
+      "random": false,
+      "scaffold": false
+    },
+    "winner_separated_point_in_interval": {
       "random": false,
       "scaffold": false
     }
@@ -30,7 +88,38 @@
       "scaffold": "combo"
     },
     "winner_changes_with_split": false,
+    "criterion": "intervals do not overlap, on the union of the across-seed spread and the test-set bootstrap (wide_lo, wide_hi)",
+    "separable_under_each_interval_alone": {
+      "random": {
+        "test_set_bootstrap_seed0": [
+          "morgan"
+        ],
+        "across_seeds": [
+          "morgan"
+        ]
+      },
+      "scaffold": {
+        "test_set_bootstrap_seed0": [
+          "morgan"
+        ],
+        "across_seeds": [
+          "morgan"
+        ]
+      }
+    },
+    "separable_arms": {
+      "random": [],
+      "scaffold": []
+    },
     "winner_separated_from_field": {
+      "random": false,
+      "scaffold": false
+    },
+    "any_arm_separable": {
+      "random": false,
+      "scaffold": false
+    },
+    "winner_separated_point_in_interval": {
       "random": false,
       "scaffold": false
     }
@@ -42,7 +131,32 @@
       "scaffold": "combo"
     },
     "winner_changes_with_split": false,
+    "criterion": "intervals do not overlap, on the union of the across-seed spread and the test-set bootstrap (wide_lo, wide_hi)",
+    "separable_under_each_interval_alone": {
+      "random": {
+        "test_set_bootstrap_seed0": [],
+        "across_seeds": []
+      },
+      "scaffold": {
+        "test_set_bootstrap_seed0": [],
+        "across_seeds": [
+          "morgan"
+        ]
+      }
+    },
+    "separable_arms": {
+      "random": [],
+      "scaffold": []
+    },
     "winner_separated_from_field": {
+      "random": false,
+      "scaffold": false
+    },
+    "any_arm_separable": {
+      "random": false,
+      "scaffold": false
+    },
+    "winner_separated_point_in_interval": {
       "random": false,
       "scaffold": false
     }
