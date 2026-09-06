@@ -118,15 +118,23 @@ with the split on three of four endpoints, and that finding was written into the
 project's documentation. Repeating across five seeds reduced it to **one of
 four** (`tox21:NR-AR`).
 
-Which one survives is the informative part. NR-AR is also the only endpoint where
-all three arms sit inside each other's bootstrap intervals, under both splits: its
-intervals are roughly 0.15 ROC-AUC wide against arm-to-arm differences of 0.005 to
-0.037. On ESOL and SR-MMP, where `descriptors` and `combo` are cleanly separated
-from `morgan`, the winner does not change at all.
+Where that one sits is the informative part. Two arms are called **not separable**
+here when their bootstrap intervals overlap, the weaker and more conservative of
+the two tests in common use.
 
-The reordering therefore appears exactly where the arms cannot be told apart, and
-nowhere else. That is single-seed noise between statistically indistinguishable
-arms rather than a property of the splits, and the claim is withdrawn. `results/claim_check.json`
+On NR-AR and NR-AhR all three arms' intervals overlap under both splits, so no arm
+is separable from any other. On ESOL and SR-MMP, `morgan` is separable from the
+other two. The surviving reorder is on NR-AR, one of the two indistinguishable
+endpoints, and neither separable endpoint reorders. That is single-seed noise
+between statistically indistinguishable arms rather than a property of the splits,
+and the claim is withdrawn.
+
+Two limits: four endpoints give one reorder among two indistinguishable endpoints
+and none among two separable ones, which is consistent with the noise account
+rather than a test of it; and the indistinguishable endpoints also have the widest
+intervals, so they are the likeliest to reorder under any mechanism. Note also
+that `descriptors` and `combo` are separable from each other nowhere, and `combo`
+contains `descriptors` by construction. `results/claim_check.json`
 records the test, including the criterion under which it fails.
 
 The weaker surviving statement is more useful: where arms sit inside each other's

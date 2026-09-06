@@ -200,10 +200,13 @@ def report(df: pd.DataFrame, baseline: str = "morgan", out_dir: str = "out") -> 
     print(f"  ranking stability: {len(distinct)} distinct winner(s) across "
           f"{len(df['endpoint'].unique())} endpoints -> {', '.join(distinct)}")
     if flips:
-        print(f"  winner CHANGES with the split on: {', '.join(flips)}")
-        print("  -> a leaderboard built on one split would have picked the wrong arm.")
+        print(f"  single-seed winner CHANGES with the split on: {', '.join(flips)}")
+        print("  -> SUPERSEDED. This is a single-seed, point-estimate comparison with")
+        print("     no uncertainty. Repeated across five seeds it falls to one endpoint,")
+        print("     and that endpoint is one where no arm is separable from any other.")
+        print("     Use results/claim_check.json, not this line. See METHODS.md 7.2.")
     else:
-        print("  winner is stable across splits on every endpoint.")
+        print("  single-seed winner is stable across splits on every endpoint.")
 
     print("-" * 88)
     n_base = sum(1 for v in verdicts.values() if not v["arms_beating_baseline"])
@@ -213,7 +216,12 @@ def report(df: pd.DataFrame, baseline: str = "morgan", out_dir: str = "out") -> 
 
     Path(out_dir).mkdir(exist_ok=True)
     Path(f"{out_dir}/gate.json").write_text(json.dumps(
-        {"gate": verdicts,
+        {"_note": ("Single-seed point comparison, no uncertainty. The "
+                    "ranking_unstable_on field reproduces a claim that was "
+                    "WITHDRAWN after repeated seeding; it is retained only so the "
+                    "withdrawal is checkable. The current result is in "
+                    "results/claim_check.json."),
+         "gate": verdicts,
          "winners": {f"{e}|{s_}": w for (e, s_), w in winners.items()},
-         "ranking_unstable_on": flips}, indent=2))
+         "ranking_unstable_on_SUPERSEDED": flips}, indent=2))
     return verdicts
