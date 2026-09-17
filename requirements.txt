@@ -1,6 +1,5 @@
-# Pinned to the versions these results were produced with.
-# Loosen to >= if you prefer; results are not version-sensitive
-# beyond ordinary floating-point noise.
+# Pinned to the versions these results were produced with, on Python 3.11.15.
+# results/environment.json records the resolved versions of the actual run.
 numpy==2.4.4
 pandas==3.0.2
 scikit-learn==1.8.0

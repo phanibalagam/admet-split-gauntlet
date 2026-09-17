@@ -3,8 +3,11 @@
 ADMET baseline gauntlet - command line entry point.
 
     python run.py setup
+    python run.py curate                       curation audit, per endpoint
+    python run.py leakage                      duplicate leakage, per split and seed
     python run.py gauntlet
     python run.py experiments                  repeated seeds + bootstrap CIs
+    python run.py rerun                        both curation arms, with verdicts
     python run.py gauntlet --featurizers morgan descriptors combo chemberta
     python run.py gauntlet --endpoints esol tox21:SR-MMP --splits random scaffold
     python run.py internal my_assays.csv --y-col logD --task regression
@@ -43,6 +46,21 @@ def cmd_gauntlet(a):
 def cmd_experiments(a):
     from src.experiments import run as run_exp
     run_exp(a.endpoints, a.featurizers, a.splits, seeds=a.seeds, n_boot=a.n_boot)
+
+
+def cmd_curate(a):
+    from src.curate import write_curation
+    write_curation()
+
+
+def cmd_leakage(a):
+    from src.curate import write_leakage
+    write_leakage()
+
+
+def cmd_rerun(a):
+    from src.rerun import run as run_rerun
+    run_rerun(seeds=a.seeds, n_boot=a.n_boot)
 
 
 def cmd_internal(a):
@@ -87,6 +105,19 @@ def main():
     s.add_argument("--seeds", type=int, default=5)
     s.add_argument("--n-boot", type=int, default=500)
     s.set_defaults(func=cmd_experiments)
+
+    s = sub.add_parser("curate", help="curation audit -> results/curation.json")
+    s.set_defaults(func=cmd_curate)
+
+    s = sub.add_parser("leakage",
+                       help="duplicate leakage per split and seed -> results/dedup_stats.json")
+    s.set_defaults(func=cmd_leakage)
+
+    s = sub.add_parser("rerun",
+                       help="both curation arms end to end -> results/dedup_compare.csv")
+    s.add_argument("--seeds", type=int, default=5)
+    s.add_argument("--n-boot", type=int, default=500)
+    s.set_defaults(func=cmd_rerun)
 
     s = sub.add_parser("internal", help="run the gauntlet on your own assay export")
     s.add_argument("csv")
