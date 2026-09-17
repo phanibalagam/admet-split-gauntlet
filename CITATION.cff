@@ -5,7 +5,9 @@ abstract: >-
   A per-endpoint evaluation harness comparing molecular featurizers across
   random and scaffold splits with bootstrap confidence intervals, testing
   whether reported ranking differences survive the uncertainty they are
-  quoted with.
+  quoted with. Includes a data curation audit, a per-split measurement of
+  duplicate train-test leakage, and the full protocol rerun with and without
+  deduplication.
 type: software
 authors:
   - family-names: Balagam
@@ -13,11 +15,13 @@ authors:
     orcid: "https://orcid.org/0009-0007-6762-399X"
 repository-code: "https://github.com/phanibalagam/admet-split-gauntlet"
 license: MIT
-date-released: "2026-09-06"
-version: "1.1.0"
+date-released: "2026-09-17"
+version: "1.2.0"
 keywords:
   - ADMET
   - molecular property prediction
   - scaffold split
   - evaluation methodology
   - cheminformatics
+  - data curation
+  - data leakage
