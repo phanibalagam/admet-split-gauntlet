@@ -1,0 +1,117 @@
+{
+  "sources": {
+    "delaney.csv": {
+      "url": "https://raw.githubusercontent.com/deepchem/deepchem/master/datasets/delaney-processed.csv",
+      "bytes": 96699,
+      "sha256": "8c06a76f0c6487d29ab0f903e6a7a7139f189ab3c1178f159c8be8964602f189"
+    },
+    "tox21.csv.gz": {
+      "url": "https://raw.githubusercontent.com/deepchem/deepchem/master/datasets/tox21.csv.gz",
+      "bytes": 125310,
+      "sha256": "48b34e4e59a2bae6f95734cd206c1869ab355f50a5e50bb7371a21f861d5e297"
+    }
+  },
+  "deduplication_rule": "compounds whose duplicate records disagree on the label are removed entirely; agreeing duplicates collapse to the first occurrence; no salt stripping or standardization is applied",
+  "endpoints": [
+    {
+      "endpoint": "esol",
+      "task": "regression",
+      "source_records": 1128,
+      "dropped_missing_label_or_smiles": 0,
+      "dropped_rdkit_parse_failure": 0,
+      "records_analyzed": 1128,
+      "distinct_canonical_smiles": 1117,
+      "duplicate_records": 11,
+      "compounds_with_a_duplicate": 11,
+      "compounds_with_conflicting_duplicates": 6,
+      "widest_label_disagreement": 1.03,
+      "disconnected_component_records": 0,
+      "records_with_formal_charge": 125,
+      "label_min": -11.6,
+      "label_max": 1.58,
+      "label_mean": -3.0501,
+      "deduplication": {
+        "n_before": 1128,
+        "conflicting_compounds": 6,
+        "conflicting_records_removed": 12,
+        "agreeing_duplicate_records_collapsed": 5,
+        "n_after": 1111
+      }
+    },
+    {
+      "endpoint": "tox21:NR-AR",
+      "task": "classification",
+      "source_records": 8014,
+      "dropped_missing_label_or_smiles": 575,
+      "dropped_rdkit_parse_failure": 7,
+      "records_analyzed": 7432,
+      "distinct_canonical_smiles": 7258,
+      "duplicate_records": 174,
+      "compounds_with_a_duplicate": 152,
+      "compounds_with_conflicting_duplicates": 9,
+      "widest_label_disagreement": null,
+      "disconnected_component_records": 233,
+      "records_with_formal_charge": 1350,
+      "positives": 309,
+      "negatives": 7123,
+      "positive_rate": 0.0416,
+      "deduplication": {
+        "n_before": 7432,
+        "conflicting_compounds": 9,
+        "conflicting_records_removed": 19,
+        "agreeing_duplicate_records_collapsed": 164,
+        "n_after": 7249
+      }
+    },
+    {
+      "endpoint": "tox21:SR-MMP",
+      "task": "classification",
+      "source_records": 8014,
+      "dropped_missing_label_or_smiles": 2094,
+      "dropped_rdkit_parse_failure": 6,
+      "records_analyzed": 5914,
+      "distinct_canonical_smiles": 5804,
+      "duplicate_records": 110,
+      "compounds_with_a_duplicate": 95,
+      "compounds_with_conflicting_duplicates": 6,
+      "widest_label_disagreement": null,
+      "disconnected_component_records": 169,
+      "records_with_formal_charge": 1012,
+      "positives": 936,
+      "negatives": 4978,
+      "positive_rate": 0.1583,
+      "deduplication": {
+        "n_before": 5914,
+        "conflicting_compounds": 6,
+        "conflicting_records_removed": 12,
+        "agreeing_duplicate_records_collapsed": 104,
+        "n_after": 5798
+      }
+    },
+    {
+      "endpoint": "tox21:NR-AhR",
+      "task": "classification",
+      "source_records": 8014,
+      "dropped_missing_label_or_smiles": 1323,
+      "dropped_rdkit_parse_failure": 7,
+      "records_analyzed": 6684,
+      "distinct_canonical_smiles": 6542,
+      "duplicate_records": 142,
+      "compounds_with_a_duplicate": 124,
+      "compounds_with_conflicting_duplicates": 8,
+      "widest_label_disagreement": null,
+      "disconnected_component_records": 207,
+      "records_with_formal_charge": 1177,
+      "positives": 785,
+      "negatives": 5899,
+      "positive_rate": 0.1174,
+      "deduplication": {
+        "n_before": 6684,
+        "conflicting_compounds": 8,
+        "conflicting_records_removed": 17,
+        "agreeing_duplicate_records_collapsed": 133,
+        "n_after": 6534
+      }
+    }
+  ]
+}

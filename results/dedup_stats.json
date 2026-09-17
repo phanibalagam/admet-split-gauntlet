@@ -1,0 +1,258 @@
+{
+  "sources": {
+    "delaney.csv": {
+      "url": "https://raw.githubusercontent.com/deepchem/deepchem/master/datasets/delaney-processed.csv",
+      "bytes": 96699,
+      "sha256": "8c06a76f0c6487d29ab0f903e6a7a7139f189ab3c1178f159c8be8964602f189"
+    },
+    "tox21.csv.gz": {
+      "url": "https://raw.githubusercontent.com/deepchem/deepchem/master/datasets/tox21.csv.gz",
+      "bytes": 125310,
+      "sha256": "48b34e4e59a2bae6f95734cd206c1869ab355f50a5e50bb7371a21f861d5e297"
+    }
+  },
+  "seeds": 5,
+  "note": "the scaffold split is a deterministic function of the molecules and has no seed, so it is measured once",
+  "measurements": [
+    {
+      "endpoint": "esol",
+      "split": "random",
+      "seed": 0,
+      "n_train": 902,
+      "n_test": 226,
+      "leaked_test_rows": 1,
+      "leaked_test_compounds": 1,
+      "leaked_pct_of_test": 0.4425
+    },
+    {
+      "endpoint": "esol",
+      "split": "random",
+      "seed": 1,
+      "n_train": 902,
+      "n_test": 226,
+      "leaked_test_rows": 2,
+      "leaked_test_compounds": 2,
+      "leaked_pct_of_test": 0.885
+    },
+    {
+      "endpoint": "esol",
+      "split": "random",
+      "seed": 2,
+      "n_train": 902,
+      "n_test": 226,
+      "leaked_test_rows": 4,
+      "leaked_test_compounds": 4,
+      "leaked_pct_of_test": 1.7699
+    },
+    {
+      "endpoint": "esol",
+      "split": "random",
+      "seed": 3,
+      "n_train": 902,
+      "n_test": 226,
+      "leaked_test_rows": 3,
+      "leaked_test_compounds": 3,
+      "leaked_pct_of_test": 1.3274
+    },
+    {
+      "endpoint": "esol",
+      "split": "random",
+      "seed": 4,
+      "n_train": 902,
+      "n_test": 226,
+      "leaked_test_rows": 4,
+      "leaked_test_compounds": 4,
+      "leaked_pct_of_test": 1.7699
+    },
+    {
+      "endpoint": "esol",
+      "split": "scaffold",
+      "seed": 0,
+      "n_train": 902,
+      "n_test": 226,
+      "leaked_test_rows": 0,
+      "leaked_test_compounds": 0,
+      "leaked_pct_of_test": 0.0
+    },
+    {
+      "endpoint": "tox21:NR-AR",
+      "split": "random",
+      "seed": 0,
+      "n_train": 5945,
+      "n_test": 1487,
+      "leaked_test_rows": 51,
+      "leaked_test_compounds": 48,
+      "leaked_pct_of_test": 3.4297
+    },
+    {
+      "endpoint": "tox21:NR-AR",
+      "split": "random",
+      "seed": 1,
+      "n_train": 5945,
+      "n_test": 1487,
+      "leaked_test_rows": 50,
+      "leaked_test_compounds": 49,
+      "leaked_pct_of_test": 3.3625
+    },
+    {
+      "endpoint": "tox21:NR-AR",
+      "split": "random",
+      "seed": 2,
+      "n_train": 5945,
+      "n_test": 1487,
+      "leaked_test_rows": 47,
+      "leaked_test_compounds": 47,
+      "leaked_pct_of_test": 3.1607
+    },
+    {
+      "endpoint": "tox21:NR-AR",
+      "split": "random",
+      "seed": 3,
+      "n_train": 5945,
+      "n_test": 1487,
+      "leaked_test_rows": 50,
+      "leaked_test_compounds": 48,
+      "leaked_pct_of_test": 3.3625
+    },
+    {
+      "endpoint": "tox21:NR-AR",
+      "split": "random",
+      "seed": 4,
+      "n_train": 5945,
+      "n_test": 1487,
+      "leaked_test_rows": 53,
+      "leaked_test_compounds": 51,
+      "leaked_pct_of_test": 3.5642
+    },
+    {
+      "endpoint": "tox21:NR-AR",
+      "split": "scaffold",
+      "seed": 0,
+      "n_train": 5945,
+      "n_test": 1487,
+      "leaked_test_rows": 0,
+      "leaked_test_compounds": 0,
+      "leaked_pct_of_test": 0.0
+    },
+    {
+      "endpoint": "tox21:SR-MMP",
+      "split": "random",
+      "seed": 0,
+      "n_train": 4731,
+      "n_test": 1183,
+      "leaked_test_rows": 37,
+      "leaked_test_compounds": 36,
+      "leaked_pct_of_test": 3.1276
+    },
+    {
+      "endpoint": "tox21:SR-MMP",
+      "split": "random",
+      "seed": 1,
+      "n_train": 4731,
+      "n_test": 1183,
+      "leaked_test_rows": 40,
+      "leaked_test_compounds": 37,
+      "leaked_pct_of_test": 3.3812
+    },
+    {
+      "endpoint": "tox21:SR-MMP",
+      "split": "random",
+      "seed": 2,
+      "n_train": 4731,
+      "n_test": 1183,
+      "leaked_test_rows": 34,
+      "leaked_test_compounds": 32,
+      "leaked_pct_of_test": 2.874
+    },
+    {
+      "endpoint": "tox21:SR-MMP",
+      "split": "random",
+      "seed": 3,
+      "n_train": 4731,
+      "n_test": 1183,
+      "leaked_test_rows": 31,
+      "leaked_test_compounds": 30,
+      "leaked_pct_of_test": 2.6205
+    },
+    {
+      "endpoint": "tox21:SR-MMP",
+      "split": "random",
+      "seed": 4,
+      "n_train": 4731,
+      "n_test": 1183,
+      "leaked_test_rows": 30,
+      "leaked_test_compounds": 29,
+      "leaked_pct_of_test": 2.5359
+    },
+    {
+      "endpoint": "tox21:SR-MMP",
+      "split": "scaffold",
+      "seed": 0,
+      "n_train": 4731,
+      "n_test": 1183,
+      "leaked_test_rows": 0,
+      "leaked_test_compounds": 0,
+      "leaked_pct_of_test": 0.0
+    },
+    {
+      "endpoint": "tox21:NR-AhR",
+      "split": "random",
+      "seed": 0,
+      "n_train": 5347,
+      "n_test": 1337,
+      "leaked_test_rows": 38,
+      "leaked_test_compounds": 38,
+      "leaked_pct_of_test": 2.8422
+    },
+    {
+      "endpoint": "tox21:NR-AhR",
+      "split": "random",
+      "seed": 1,
+      "n_train": 5347,
+      "n_test": 1337,
+      "leaked_test_rows": 45,
+      "leaked_test_compounds": 43,
+      "leaked_pct_of_test": 3.3657
+    },
+    {
+      "endpoint": "tox21:NR-AhR",
+      "split": "random",
+      "seed": 2,
+      "n_train": 5347,
+      "n_test": 1337,
+      "leaked_test_rows": 40,
+      "leaked_test_compounds": 36,
+      "leaked_pct_of_test": 2.9918
+    },
+    {
+      "endpoint": "tox21:NR-AhR",
+      "split": "random",
+      "seed": 3,
+      "n_train": 5347,
+      "n_test": 1337,
+      "leaked_test_rows": 51,
+      "leaked_test_compounds": 50,
+      "leaked_pct_of_test": 3.8145
+    },
+    {
+      "endpoint": "tox21:NR-AhR",
+      "split": "random",
+      "seed": 4,
+      "n_train": 5347,
+      "n_test": 1337,
+      "leaked_test_rows": 46,
+      "leaked_test_compounds": 42,
+      "leaked_pct_of_test": 3.4405
+    },
+    {
+      "endpoint": "tox21:NR-AhR",
+      "split": "scaffold",
+      "seed": 0,
+      "n_train": 5347,
+      "n_test": 1337,
+      "leaked_test_rows": 0,
+      "leaked_test_compounds": 0,
+      "leaked_pct_of_test": 0.0
+    }
+  ]
+}
