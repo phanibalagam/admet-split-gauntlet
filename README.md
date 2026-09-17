@@ -33,10 +33,45 @@ Splits:
 ## Run it
 
 ```
-python run.py setup
-python run.py gauntlet
-python run.py gauntlet --featurizers morgan descriptors combo chemberta
+python run.py setup        # downloads ESOL and Tox21; they are not redistributed here
+python run.py curate       # curation audit          -> results/curation.json
+python run.py leakage      # duplicate leakage       -> results/dedup_stats.json
+python run.py gauntlet     # one seed, point estimates
+python run.py experiments  # five seeds + bootstrap  -> results/with_intervals.csv
+python run.py rerun        # both curation arms      -> results/dedup_compare.csv
 ```
+
+`./reproduce.sh` (or `reproduce.ps1`) runs all of it in order and writes every
+reported number under `results/`. Partial results are checkpointed to
+`results/_partial/`, so an interrupted run resumes instead of starting over.
+
+### Curation
+
+The pipeline as originally written performed no curation beyond dropping missing
+values: no deduplication, no salt stripping, no standardization. `run.py curate`
+measures what that leaves in the data and `run.py leakage` measures what it costs
+- duplicate molecules that a random split can place on both sides of the
+partition, which a scaffold split cannot. `run.py rerun` then runs the whole
+protocol with and without deduplication so the difference is reported rather than
+hidden. See METHODS.md sections 2.1 and 2.2.
+
+### Runtime, measured
+
+On one modern x86-64 container, Python 3.11.15, no GPU:
+
+| Step | Measured |
+|---|---|
+| `run.py setup` | seconds (two downloads, 222 KB total) |
+| `run.py curate` + `run.py leakage` | about 2 minutes |
+| `run.py gauntlet` | 5.9 minutes |
+| `run.py experiments --seeds 5 --n-boot 500` | 14.9 minutes |
+| `run.py rerun --seeds 5 --n-boot 500` | 28.6 minutes from cold |
+| **`./reproduce.sh` end to end** | **about 52 minutes** |
+
+A rerun that resumes from `results/_partial/` finishes in about a second, which
+is what the checkpoints are for. An earlier version of this README quoted about
+fifteen minutes; that was the `experiments` step alone, before curation and the
+two-arm rerun existed.
 
 ## What it found on the shipped public data
 
@@ -70,7 +105,7 @@ tox21:NR-AhR    ROC_AUC    random                 scaffold
 The split shift is the result that holds up. Scaffold splitting costs something
 in all twelve endpoint-arm combinations: 0.018 to 0.108 ROC-AUC, and 48% to 60%
 added RMSE on ESOL. That gap is the share of a reported accuracy that is
-memorisation of chemotypes, and it is why any ADMET number quoted without naming
+memorization of chemotypes, and it is why any ADMET number quoted without naming
 its split is unreadable.
 
 The direction holds everywhere but the magnitude does not, and the random and
@@ -142,19 +177,19 @@ ceiling on any model trained on the data, and it is the only honest answer to
 ## Standalone by design
 
 This project has no dependency on its sibling projects and no hosted-model
-dependency at all. It is pure tabular modelling. Copy the folder anywhere and
+dependency at all. It is pure tabular modeling. Copy the folder anywhere and
 it runs.
 
 Each project in the collection is meant to be redistributable on its own, as a
 repository, a post, or an attachment, so nothing is imported across project
 boundaries.
 
-## Licence and provenance
+## License and provenance
 
 Code in this directory: MIT (see `LICENSE`).
 
 Data: see "What it found on the shipped public data" above for what is real and what is
-generated, and under which licence each part may be redistributed.
+generated, and under which license each part may be redistributed.
 
 Originally candidate 06 in a fourteen-candidate portfolio assessment; renumbered
 sequentially here because these three were the ones built.
@@ -162,11 +197,13 @@ sequentially here because these three were the ones built.
 ## Disclaimer
 
 This work was carried out independently, on personal time and equipment, and is
-not connected to the author's employment. The views expressed are the author's
-own and do not represent the views, positions or policies of any current,
-former or future employer or client. **No proprietary, confidential or internal
-data of any organisation was used.** All data is public: ESOL (Delaney) and
-three Tox21 assays. Neither is redistributed here; `run.py setup` downloads both
-from the DeepChem repository, whose MIT licence covers that project's software.
-The data itself originates with Delaney (2004) and with the NIH/NCATS Tox21
-initiative, and those sources govern its terms of use.
+not connected to the author's employment. The views expressed are the author's own
+and do not represent the views, positions or policies of any current, former or
+future employer or client. No proprietary, confidential or internal data of any
+organization was used.
+
+All data is public: ESOL (Delaney) and three Tox21 assays. Neither is
+redistributed here; `run.py setup` downloads both from the DeepChem repository,
+whose MIT License covers that project's software. The data itself originates
+with Delaney (2004) and with the NIH/NCATS Tox21 initiative, and those sources
+govern its terms of use.

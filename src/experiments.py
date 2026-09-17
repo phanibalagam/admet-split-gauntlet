@@ -11,7 +11,7 @@ variance are quantified here:
                       their point estimates look.
 
   MODEL-SEED VARIANCE Repeating the fit across seeds shows how much of a gap is
-                      the model's own initialisation.
+                      the model's own initialization.
 
 The headline claim of this project - that the winning arm changes with the split
 - only means something if the gaps involved are larger than these intervals.

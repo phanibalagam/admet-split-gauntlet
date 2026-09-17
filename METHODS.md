@@ -10,7 +10,7 @@ answer depend on how the data is split? Secondarily: do reported ranking
 differences between featurizers survive the uncertainty they are quoted with?
 
 The study is deliberately designed so that its headline claim can fail, and in
-the course of this work it did (see §7).
+the course of this work it did (see Section 7).
 
 ## 2. Data
 
@@ -20,12 +20,53 @@ Two public, permissively licensed sources, retrieved by `src/data.py`:
 - **Tox21**: twelve binary toxicity assays, ~8,000 compounds; NR-AR, SR-MMP and
   NR-AhR are used here (7,432 / 5,914 / 6,684 compounds after parsing)
 
-Both are distributed with the DeepChem repository under the MIT licence. SMILES
-that RDKit cannot parse are dropped rather than imputed; no compound is otherwise
-excluded.
+Both are distributed with the DeepChem repository under the MIT License. Neither
+is redistributed in this repository; `run.py setup` downloads them at run time.
 
 `src/data.py:load_internal` accepts a private assay export in the same shape,
 requiring SMILES, a measured value, and an assay run date.
+
+### 2.1 Curation, including what was not done
+
+`src/curate.py` audits the data and writes `results/curation.json`, which records
+the SHA-256 and source URL of each raw input alongside the counts, so the numbers
+carry their provenance. Per endpoint it reports source records, records dropped
+for a missing label or SMILES, records dropped for RDKit parse failure, records
+analyzed, distinct canonical SMILES, duplicate records, compounds carrying a
+duplicate, compounds whose duplicates disagree on the label, disconnected
+component records (salts, counterions and mixtures), records with a formal
+charge, and class balance for the Tox21 assays.
+
+**The pipeline as originally written performed no curation beyond dropping
+missing values.** Rows with a missing label or SMILES were dropped and RDKit
+discarded what it could not parse. Nothing was deduplicated, no salt or
+counterion was stripped, and no charge or tautomer standardization was applied.
+That is stated here as fact rather than corrected silently, because two of those
+omissions move reported numbers.
+
+### 2.2 Deduplication, and why it is measured rather than assumed
+
+Records group by RDKit canonical SMILES. A compound whose duplicate records
+**disagree** on the label is removed entirely: the disagreement cannot be
+resolved without the source assay, which the redistributed benchmark does not
+carry, and keeping either value would be a guess. Duplicates that agree collapse
+to the first occurrence. Nothing else changes - salts and mixtures stay intact,
+so the deduplicated arm differs from the published arm in exactly one respect.
+
+`src/curate.py:leakage` then counts, for every endpoint, split and seed, the test
+rows whose canonical SMILES also appears in training, and writes
+`results/dedup_stats.json`. The asymmetry it measures is the point: a random
+partition can place the same molecule on both sides, and a Bemis-Murcko scaffold
+partition cannot, because identical molecules share a scaffold and are assigned
+together. Any random-to-scaffold gap measured on uncurated data therefore carries
+some leakage that the scaffold split does not admit.
+
+`src/rerun.py` runs the whole protocol on both arms and derives - rather than
+asserts - how many endpoints have a different best arm between splits at one seed
+and over five, which arm pairs have non-overlapping intervals under each interval
+definition, and the largest metric shifts between the arms. Its output is
+`results/dedup_compare.csv`, `results/claim_check.json` and
+`results/environment.json`.
 
 ## 3. Featurizers
 
@@ -48,7 +89,7 @@ subject to the same gate.
 | Split | Construction |
 |---|---|
 | `random` | uniform permutation, 80/20 |
-| `scaffold` | Bemis–Murcko scaffolds grouped, largest groups assigned to train until 80% is reached, remainder to test |
+| `scaffold` | Bemis-Murcko scaffolds grouped, largest groups assigned to train until 80% is reached, remainder to test |
 | `temporal` | ordered by assay run date, first 80% train |
 
 Scaffold assignment is deterministic by construction. `temporal` requires a date
@@ -66,7 +107,7 @@ advantage would confound exactly the comparison being made.
 
 ## 6. Metrics and uncertainty
 
-Regression: RMSE (primary), R². Classification: ROC-AUC (primary), PR-AUC.
+Regression: RMSE (primary), R^2. Classification: ROC-AUC (primary), PR-AUC.
 
 Two sources of variance are quantified separately (`src/experiments.py`):
 
@@ -102,16 +143,16 @@ and a 500-resample test-set bootstrap computed at every seed; see section 6.
 
 | Endpoint | Arm | Random | Scaffold | Shift |
 |---|---|---|---|---|
-| esol (RMSE ↓) | morgan | 1.093 [0.863, 1.321] | 1.618 [1.394, 1.794] | +0.525 |
+| esol (RMSE, lower is better) | morgan | 1.093 [0.863, 1.321] | 1.618 [1.394, 1.794] | +0.525 |
 |  | descriptors | 0.586 [0.477, 0.740] | 0.938 [0.803, 1.062] | +0.352 |
 |  | combo | 0.584 [0.490, 0.723] | 0.928 [0.800, 1.050] | +0.343 |
-| tox21:NR-AR (AUC ↑) | morgan | 0.801 [0.684, 0.905] | 0.731 [0.630, 0.819] | -0.070 |
+| tox21:NR-AR (AUC, higher is better) | morgan | 0.801 [0.684, 0.905] | 0.731 [0.630, 0.819] | -0.070 |
 |  | descriptors | 0.764 [0.616, 0.873] | 0.746 [0.627, 0.835] | -0.018 |
 |  | combo | 0.769 [0.628, 0.874] | 0.735 [0.643, 0.837] | -0.034 |
-| tox21:SR-MMP (AUC ↑) | morgan | 0.871 [0.832, 0.903] | 0.763 [0.712, 0.807] | -0.108 |
+| tox21:SR-MMP (AUC, higher is better) | morgan | 0.871 [0.832, 0.903] | 0.763 [0.712, 0.807] | -0.108 |
 |  | descriptors | 0.930 [0.891, 0.953] | 0.842 [0.805, 0.875] | -0.088 |
 |  | combo | 0.932 [0.898, 0.957] | 0.844 [0.813, 0.873] | -0.088 |
-| tox21:NR-AhR (AUC ↑) | morgan | 0.891 [0.858, 0.925] | 0.797 [0.746, 0.839] | -0.094 |
+| tox21:NR-AhR (AUC, higher is better) | morgan | 0.891 [0.858, 0.925] | 0.797 [0.746, 0.839] | -0.094 |
 |  | descriptors | 0.906 [0.852, 0.943] | 0.841 [0.807, 0.874] | -0.065 |
 |  | combo | 0.908 [0.860, 0.943] | 0.843 [0.806, 0.877] | -0.065 |
 
@@ -119,7 +160,7 @@ Bootstrap intervals for every cell are in `results/with_intervals.csv`.
 
 ### 7.1 The split shift holds up
 
-Scaffold splitting costs something in all twelve endpoint–arm combinations: 0.018
+Scaffold splitting costs something in all twelve endpoint-arm combinations: 0.018
 to 0.108 ROC-AUC on the classification endpoints, and 48% to 60% added RMSE on
 ESOL. This is the finding the study supports.
 
@@ -172,7 +213,7 @@ interpretable arm is preferred.
 ## 8. Limitations
 
 1. `temporal` is never exercised, because no public benchmark carries assay
-   dates. The split most predictive of deployment behaviour is therefore
+   dates. The split most predictive of deployment behavior is therefore
    untested here, and the scaffold split is a proxy for it.
 2. No repeatability ceiling. Public benchmarks carry single measurements, so the
    assay-reproducibility bound on achievable performance cannot be computed.
@@ -190,6 +231,28 @@ interpretable arm is preferred.
 .\reproduce.ps1         # Windows
 ```
 
-Downloads the public datasets, runs the gauntlet, then the repeated-seed and
-bootstrap analysis, writing all reported numbers to `results/`. Approximately
-15 minutes on a laptop; no GPU required.
+Downloads the public datasets, runs the curation audit and the leakage
+measurement, then the gauntlet, the repeated-seed and bootstrap analysis, and
+finally both curation arms, writing every reported number to `results/`. No GPU
+required. Measured runtime is below; note that `experiments` and `rerun` both
+write `results/claim_check.json` and `rerun` runs last, so the committed file is
+the two-arm version.
+
+### 9.1 Measured runtime
+
+`./reproduce.sh` takes about 52 minutes end to end on one modern x86-64
+container with no GPU (Python 3.11.15): `gauntlet` 5.9 min, `experiments` 14.9
+min, `rerun` 28.6 min from cold, with curation and leakage about 2 min and the
+two downloads a few seconds. `run.py rerun` checkpoints each (endpoint, arm)
+pair to `results/_partial/`, so an interrupted run resumes in about a second.
+
+### 9.2 Determinism
+
+Every seed is fixed: model seeds are `range(5)`, the random split is reseeded
+with the model seed, the scaffold split takes no seed because it is a
+deterministic function of the molecules, and the bootstrap is seeded at 0 for
+every draw. `results/environment.json` records the Python version and the
+resolved version of every package that touches a number. Regenerating the
+as-published arm on this environment reproduced the committed
+`results/with_intervals.csv` exactly, across all 24 rows and all 11 numeric
+columns, so the file was kept rather than replaced.

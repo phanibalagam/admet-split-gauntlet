@@ -2,7 +2,7 @@
 The gauntlet: every featurizer against every split, on every endpoint.
 
 Output is one table. The table is the deliverable - not a model, not a
-leaderboard position. It answers three questions a programme has to answer
+leaderboard position. It answers three questions a program has to answer
 before it funds anything:
 
   1. Does the fancy featurizer beat the fingerprint on OUR endpoint?

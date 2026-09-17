@@ -9,7 +9,7 @@ Two real, public MoleculeNet datasets back the project:
 Both are downloaded from the DeepChem repository by `python -m src.data`.
 They stand in for your internal assay history. The important difference is
 called out in splits.py: public sets have no run dates, so they cannot be split
-temporally, which is the split that actually predicts deployment behaviour.
+temporally, which is the split that actually predicts deployment behavior.
 """
 
 from __future__ import annotations

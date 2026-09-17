@@ -10,7 +10,7 @@ temporal  split by assay run date. The only split that answers the question you
           single most important thing to fix in your own data export.
 
 The gap between random and scaffold on the same model is the amount of your
-reported accuracy that is memorisation of chemotypes.
+reported accuracy that is memorization of chemotypes.
 """
 
 from __future__ import annotations
@@ -36,7 +36,7 @@ def scaffold_split(mols: list, frac_train: float = 0.8):
 
     There is no seed argument, deliberately. This split is a function of the
     molecules alone, so the partition cannot be varied without changing the
-    protocol to a randomised or balanced scaffold split, which is a different
+    protocol to a randomized or balanced scaffold split, which is a different
     method rather than a different seed. An earlier version accepted a `seed`
     and ignored it, which read as if the partition were being reseeded when it
     was not.
