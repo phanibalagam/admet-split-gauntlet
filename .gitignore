@@ -8,3 +8,6 @@ out/
 # ESOL and Tox21 are downloaded by `run.py setup` from the DeepChem repository.
 data/delaney.csv
 data/tox21.csv.gz
+
+# checkpoints written by `run.py rerun`; the finished tables are committed
+results/_partial/

@@ -1,0 +1,35 @@
+{
+  "python": "3.11.15",
+  "platform": "Linux-6.18.44-fc-v33-x86_64-with-glibc2.39",
+  "packages": {
+    "numpy": "2.4.4",
+    "pandas": "3.0.2",
+    "sklearn": "1.8.0",
+    "rdkit": "2026.03.6"
+  },
+  "settings": {
+    "seeds": 5,
+    "n_boot": 500,
+    "endpoints": [
+      "esol",
+      "tox21:NR-AR",
+      "tox21:SR-MMP",
+      "tox21:NR-AhR"
+    ],
+    "featurizers": [
+      "morgan",
+      "descriptors",
+      "combo"
+    ],
+    "splits": [
+      "random",
+      "scaffold"
+    ],
+    "arms": [
+      "as_published",
+      "dedup"
+    ]
+  },
+  "runtime_seconds_this_run": 0.0,
+  "runtime_by_endpoint_arm": []
+}

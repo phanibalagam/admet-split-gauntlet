@@ -1,164 +1,355 @@
-[
-  {
-    "endpoint": "esol",
-    "winners": {
-      "random": "combo",
-      "scaffold": "combo"
-    },
-    "winner_changes_with_split": false,
-    "criterion": "intervals do not overlap, on the union of the across-seed spread and the test-set bootstrap (wide_lo, wide_hi)",
-    "separable_under_each_interval_alone": {
-      "random": {
-        "test_set_bootstrap_seed0": [
-          "morgan"
-        ],
-        "across_seeds": [
-          "morgan"
-        ]
+{
+  "as_published": {
+    "endpoints": [
+      {
+        "endpoint": "esol",
+        "n": 1128,
+        "best_arm_five_seeds": {
+          "random": "combo",
+          "scaffold": "combo"
+        },
+        "best_arm_seed0": {
+          "random": "combo",
+          "scaffold": "combo"
+        },
+        "reorders_five_seeds": false,
+        "reorders_seed0": false,
+        "separable_pairs_by_interval": {
+          "union": {
+            "random": [
+              "morgan vs combo",
+              "morgan vs descriptors"
+            ],
+            "scaffold": [
+              "morgan vs combo",
+              "morgan vs descriptors"
+            ]
+          },
+          "bootstrap_seed0": {
+            "random": [
+              "morgan vs combo",
+              "morgan vs descriptors"
+            ],
+            "scaffold": [
+              "morgan vs combo",
+              "morgan vs descriptors"
+            ]
+          },
+          "across_seeds": {
+            "random": [
+              "morgan vs combo",
+              "morgan vs descriptors"
+            ],
+            "scaffold": [
+              "morgan vs combo",
+              "morgan vs descriptors"
+            ]
+          }
+        }
       },
-      "scaffold": {
-        "test_set_bootstrap_seed0": [
-          "morgan"
-        ],
-        "across_seeds": [
-          "morgan"
-        ]
+      {
+        "endpoint": "tox21:NR-AR",
+        "n": 7432,
+        "best_arm_five_seeds": {
+          "random": "morgan",
+          "scaffold": "descriptors"
+        },
+        "best_arm_seed0": {
+          "random": "combo",
+          "scaffold": "descriptors"
+        },
+        "reorders_five_seeds": true,
+        "reorders_seed0": true,
+        "separable_pairs_by_interval": {
+          "union": {
+            "random": [],
+            "scaffold": []
+          },
+          "bootstrap_seed0": {
+            "random": [],
+            "scaffold": []
+          },
+          "across_seeds": {
+            "random": [],
+            "scaffold": []
+          }
+        }
+      },
+      {
+        "endpoint": "tox21:SR-MMP",
+        "n": 5914,
+        "best_arm_five_seeds": {
+          "random": "combo",
+          "scaffold": "combo"
+        },
+        "best_arm_seed0": {
+          "random": "descriptors",
+          "scaffold": "combo"
+        },
+        "reorders_five_seeds": false,
+        "reorders_seed0": true,
+        "separable_pairs_by_interval": {
+          "union": {
+            "random": [],
+            "scaffold": [
+              "morgan vs combo"
+            ]
+          },
+          "bootstrap_seed0": {
+            "random": [
+              "morgan vs combo",
+              "morgan vs descriptors"
+            ],
+            "scaffold": [
+              "morgan vs combo",
+              "morgan vs descriptors"
+            ]
+          },
+          "across_seeds": {
+            "random": [
+              "morgan vs combo",
+              "morgan vs descriptors"
+            ],
+            "scaffold": [
+              "morgan vs combo",
+              "morgan vs descriptors"
+            ]
+          }
+        }
+      },
+      {
+        "endpoint": "tox21:NR-AhR",
+        "n": 6684,
+        "best_arm_five_seeds": {
+          "random": "combo",
+          "scaffold": "combo"
+        },
+        "best_arm_seed0": {
+          "random": "descriptors",
+          "scaffold": "combo"
+        },
+        "reorders_five_seeds": false,
+        "reorders_seed0": true,
+        "separable_pairs_by_interval": {
+          "union": {
+            "random": [],
+            "scaffold": []
+          },
+          "bootstrap_seed0": {
+            "random": [],
+            "scaffold": []
+          },
+          "across_seeds": {
+            "random": [],
+            "scaffold": [
+              "morgan vs combo",
+              "morgan vs descriptors"
+            ]
+          }
+        }
       }
-    },
-    "separable_arms": {
-      "random": [
-        "morgan"
-      ],
-      "scaffold": [
-        "morgan"
-      ]
-    },
-    "winner_separated_from_field": {
-      "random": false,
-      "scaffold": false
-    },
-    "any_arm_separable": {
-      "random": true,
-      "scaffold": true
-    },
-    "winner_separated_point_in_interval": {
-      "random": false,
-      "scaffold": false
-    }
+    ],
+    "reorder_count_five_seeds": 1,
+    "reorder_count_seed0": 3,
+    "separable_pairs_union_total": 5
   },
-  {
-    "endpoint": "tox21:NR-AR",
-    "winners": {
-      "random": "morgan",
-      "scaffold": "descriptors"
-    },
-    "winner_changes_with_split": true,
-    "criterion": "intervals do not overlap, on the union of the across-seed spread and the test-set bootstrap (wide_lo, wide_hi)",
-    "separable_under_each_interval_alone": {
-      "random": {
-        "test_set_bootstrap_seed0": [],
-        "across_seeds": []
+  "dedup": {
+    "endpoints": [
+      {
+        "endpoint": "esol",
+        "n": 1111,
+        "best_arm_five_seeds": {
+          "random": "combo",
+          "scaffold": "descriptors"
+        },
+        "best_arm_seed0": {
+          "random": "combo",
+          "scaffold": "combo"
+        },
+        "reorders_five_seeds": true,
+        "reorders_seed0": false,
+        "separable_pairs_by_interval": {
+          "union": {
+            "random": [
+              "morgan vs combo",
+              "morgan vs descriptors"
+            ],
+            "scaffold": [
+              "morgan vs combo",
+              "morgan vs descriptors"
+            ]
+          },
+          "bootstrap_seed0": {
+            "random": [
+              "morgan vs combo",
+              "morgan vs descriptors"
+            ],
+            "scaffold": [
+              "morgan vs combo",
+              "morgan vs descriptors"
+            ]
+          },
+          "across_seeds": {
+            "random": [
+              "morgan vs combo",
+              "morgan vs descriptors"
+            ],
+            "scaffold": [
+              "morgan vs combo",
+              "morgan vs descriptors"
+            ]
+          }
+        }
       },
-      "scaffold": {
-        "test_set_bootstrap_seed0": [],
-        "across_seeds": []
+      {
+        "endpoint": "tox21:NR-AR",
+        "n": 7249,
+        "best_arm_five_seeds": {
+          "random": "combo",
+          "scaffold": "combo"
+        },
+        "best_arm_seed0": {
+          "random": "combo",
+          "scaffold": "combo"
+        },
+        "reorders_five_seeds": false,
+        "reorders_seed0": false,
+        "separable_pairs_by_interval": {
+          "union": {
+            "random": [],
+            "scaffold": []
+          },
+          "bootstrap_seed0": {
+            "random": [],
+            "scaffold": []
+          },
+          "across_seeds": {
+            "random": [],
+            "scaffold": []
+          }
+        }
+      },
+      {
+        "endpoint": "tox21:SR-MMP",
+        "n": 5798,
+        "best_arm_five_seeds": {
+          "random": "descriptors",
+          "scaffold": "combo"
+        },
+        "best_arm_seed0": {
+          "random": "descriptors",
+          "scaffold": "combo"
+        },
+        "reorders_five_seeds": true,
+        "reorders_seed0": true,
+        "separable_pairs_by_interval": {
+          "union": {
+            "random": [],
+            "scaffold": [
+              "morgan vs combo",
+              "morgan vs descriptors"
+            ]
+          },
+          "bootstrap_seed0": {
+            "random": [],
+            "scaffold": [
+              "morgan vs combo",
+              "morgan vs descriptors"
+            ]
+          },
+          "across_seeds": {
+            "random": [],
+            "scaffold": [
+              "morgan vs combo",
+              "morgan vs descriptors"
+            ]
+          }
+        }
+      },
+      {
+        "endpoint": "tox21:NR-AhR",
+        "n": 6534,
+        "best_arm_five_seeds": {
+          "random": "combo",
+          "scaffold": "descriptors"
+        },
+        "best_arm_seed0": {
+          "random": "descriptors",
+          "scaffold": "descriptors"
+        },
+        "reorders_five_seeds": true,
+        "reorders_seed0": false,
+        "separable_pairs_by_interval": {
+          "union": {
+            "random": [],
+            "scaffold": []
+          },
+          "bootstrap_seed0": {
+            "random": [],
+            "scaffold": []
+          },
+          "across_seeds": {
+            "random": [],
+            "scaffold": [
+              "morgan vs combo",
+              "morgan vs descriptors"
+            ]
+          }
+        }
       }
-    },
-    "separable_arms": {
-      "random": [],
-      "scaffold": []
-    },
-    "winner_separated_from_field": {
-      "random": false,
-      "scaffold": false
-    },
-    "any_arm_separable": {
-      "random": false,
-      "scaffold": false
-    },
-    "winner_separated_point_in_interval": {
-      "random": false,
-      "scaffold": false
-    }
+    ],
+    "reorder_count_five_seeds": 3,
+    "reorder_count_seed0": 1,
+    "separable_pairs_union_total": 6
   },
-  {
-    "endpoint": "tox21:SR-MMP",
-    "winners": {
-      "random": "combo",
-      "scaffold": "combo"
+  "largest_shifts": [
+    {
+      "endpoint": "esol",
+      "featurizer": "morgan",
+      "split": "random",
+      "as_published": 1.0934,
+      "dedup": 1.1866,
+      "delta": 0.0932
     },
-    "winner_changes_with_split": false,
-    "criterion": "intervals do not overlap, on the union of the across-seed spread and the test-set bootstrap (wide_lo, wide_hi)",
-    "separable_under_each_interval_alone": {
-      "random": {
-        "test_set_bootstrap_seed0": [
-          "morgan"
-        ],
-        "across_seeds": [
-          "morgan"
-        ]
-      },
-      "scaffold": {
-        "test_set_bootstrap_seed0": [
-          "morgan"
-        ],
-        "across_seeds": [
-          "morgan"
-        ]
-      }
+    {
+      "endpoint": "esol",
+      "featurizer": "combo",
+      "split": "random",
+      "as_published": 0.5843,
+      "dedup": 0.6406,
+      "delta": 0.0563
     },
-    "separable_arms": {
-      "random": [],
-      "scaffold": []
+    {
+      "endpoint": "tox21:NR-AR",
+      "featurizer": "combo",
+      "split": "random",
+      "as_published": 0.769,
+      "dedup": 0.8246,
+      "delta": 0.0556
     },
-    "winner_separated_from_field": {
-      "random": false,
-      "scaffold": false
+    {
+      "endpoint": "esol",
+      "featurizer": "descriptors",
+      "split": "random",
+      "as_published": 0.5862,
+      "dedup": 0.6411,
+      "delta": 0.0549
     },
-    "any_arm_separable": {
-      "random": false,
-      "scaffold": false
+    {
+      "endpoint": "tox21:NR-AR",
+      "featurizer": "descriptors",
+      "split": "random",
+      "as_published": 0.7637,
+      "dedup": 0.8047,
+      "delta": 0.041
     },
-    "winner_separated_point_in_interval": {
-      "random": false,
-      "scaffold": false
+    {
+      "endpoint": "tox21:NR-AR",
+      "featurizer": "descriptors",
+      "split": "scaffold",
+      "as_published": 0.7457,
+      "dedup": 0.7159,
+      "delta": -0.0298
     }
-  },
-  {
-    "endpoint": "tox21:NR-AhR",
-    "winners": {
-      "random": "combo",
-      "scaffold": "combo"
-    },
-    "winner_changes_with_split": false,
-    "criterion": "intervals do not overlap, on the union of the across-seed spread and the test-set bootstrap (wide_lo, wide_hi)",
-    "separable_under_each_interval_alone": {
-      "random": {
-        "test_set_bootstrap_seed0": [],
-        "across_seeds": []
-      },
-      "scaffold": {
-        "test_set_bootstrap_seed0": [],
-        "across_seeds": [
-          "morgan"
-        ]
-      }
-    },
-    "separable_arms": {
-      "random": [],
-      "scaffold": []
-    },
-    "winner_separated_from_field": {
-      "random": false,
-      "scaffold": false
-    },
-    "any_arm_separable": {
-      "random": false,
-      "scaffold": false
-    },
-    "winner_separated_point_in_interval": {
-      "random": false,
-      "scaffold": false
-    }
-  }
-]
+  ]
+}
