@@ -184,6 +184,64 @@ Each project in the collection is meant to be redistributable on its own, as a
 repository, a post, or an attachment, so nothing is imported across project
 boundaries.
 
+## This repository in a peer-reviewed submission
+
+This project is one of three systems evaluated in "Gates That Can Fail: A
+Reproducible Evaluation Discipline for Applied Machine-Learning Systems in Drug
+Development" (Phani Kumar Balagam, sole author), under review at PeerJ Computer
+Science as an AI Application article. It is also the primary artifact of a
+companion manuscript that reports this study in full.
+
+The technique that paper proposes is a nine-part evaluation discipline, not the
+system in this repository. This project is its Case Study II: one of three
+applications the discipline was evaluated on, and the source of two of the six
+corrections the paper reports, a featurizer reordering withdrawn under repeated
+seeding and an uncurated duplicate leak. The model choice here is deliberately
+plain for that reason. Gradient-boosted trees on molecular featurizers were
+chosen because the comparison is between representations, so an untuned tree with
+identical hyperparameters across every arm holds the learner constant while the
+featurizer varies. It is a baseline chosen so that the evaluation discipline, and
+not model sophistication, is what is under test.
+
+The submission carries a consolidated supplemental README covering all three
+repositories against PeerJ's AI Application requirements: third-party dataset
+sources, preprocessing, technique selection, computing infrastructure, evaluation
+method and metrics, model-type justification, limitations, and code availability.
+The other two systems are:
+
+- `citation-binding-rag` (Case Study I) --- https://github.com/phanibalagam/citation-binding-rag --- doi:10.5281/zenodo.22541458
+- `capa-recurrence-triage` (Case Study III) --- https://github.com/phanibalagam/capa-recurrence-triage --- doi:10.5281/zenodo.22541462
+
+### Reproducing the numbers this repository reports
+
+Python 3.11 or newer. No GPU. `run.py setup` needs network access to
+raw.githubusercontent.com once, to download ESOL and Tox21; neither is
+redistributed here.
+
+```
+git clone https://github.com/phanibalagam/admet-split-gauntlet
+cd admet-split-gauntlet
+pip install -r requirements.txt
+./reproduce.sh
+```
+
+Or step by step:
+
+```
+python run.py setup        # downloads ESOL and Tox21
+python run.py curate       # curation audit          -> results/curation.json
+python run.py leakage      # duplicate leakage       -> results/dedup_stats.json
+python run.py gauntlet     # one seed, point estimates
+python run.py experiments  # five seeds + bootstrap  -> results/with_intervals.csv
+python run.py rerun        # both curation arms      -> results/dedup_compare.csv
+```
+
+Measured step timings are in "Runtime, measured" above. Partial results are
+checkpointed to `results/_partial/`, so an interrupted run resumes rather than
+starting over. `results/environment.json` records the interpreter version, the
+platform string and the resolved package versions alongside the results they
+produced.
+
 ## License and provenance
 
 Code in this directory: MIT (see `LICENSE`).
